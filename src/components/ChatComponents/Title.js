@@ -4,7 +4,7 @@ const Title = ({ title, black }) => {
   if (black) {
     return (
       <div className="max-[1250px]:text-2xl max-[1024px]:hidden font-serif tracking-tighter text-3xl font-bold text-black">
-        matefinder
+        Roommies
       </div>
     );
   }

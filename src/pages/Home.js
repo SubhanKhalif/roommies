@@ -23,7 +23,7 @@ const Home = () => {
 
         const data = await response.json();
         if (data.status === 'success') {
-          navigate('/home/message', { replace: true });
+          navigate('/home/landing', { replace: true });
         } else {
           setIsLoading(false);
         }

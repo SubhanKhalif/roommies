@@ -8,7 +8,7 @@ const NavBar = () => {
       <div className='text-white flex flex-row items-center'>
         <img src={Logo} alt='logo' className='w-10' />
         <div className='text-white text-2xl font-Roboto font-semibold ml-2'>
-          MateFinder
+          Roommies
         </div>
       </div>
       <NavList />
