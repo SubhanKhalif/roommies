@@ -32,10 +32,10 @@ const Info = () => {
               </div>
               <div className="text-[#9AA3A6] font-Poppins">
                 <div className="max-[1024px]:text-sm">
-                  P: +91 9483933877
+                  P: +91 7030818523
                 </div>
                 <div className="max-[1024px]:text-sm">
-                  E: samarthskadam14@gmail.com
+                  E: subhankhalif34@gmail.com
                 </div>
               </div>
             </div>
