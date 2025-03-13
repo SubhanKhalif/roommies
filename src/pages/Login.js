@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Main from '../components/LoginComponents/Main.js';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { redirect } from 'react-router-dom';
@@ -16,23 +16,35 @@ const notify = (message) => toast.error(message, {
   theme: 'colored',
 });
 
-const Login = () => (
-  <GoogleOAuthProvider clientId="438058612514-mr6pvrfg97crajaid4grj88l95vo8u82.apps.googleusercontent.com">
-    <ToastContainer
-      position="top-center"
-      autoClose={5000}
-      hideProgressBar={false}
-      newestOnTop={false}
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover
-      theme="colored"
-    />
-    <Main />
-  </GoogleOAuthProvider>
-);
+function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle login logic
+  };
+
+  return (
+    <GoogleOAuthProvider clientId="438058612514-mr6pvrfg97crajaid4grj88l95vo8u82.apps.googleusercontent.com">
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
+      <div className="login">
+        <Main />
+      </div>
+    </GoogleOAuthProvider>
+  );
+}
 
 export const action = async ({ request }) => {
   const data = await request.formData();

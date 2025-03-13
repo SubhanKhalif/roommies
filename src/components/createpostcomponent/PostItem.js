@@ -39,30 +39,62 @@ export default function PostItem({ post, onEdit, fetchUserPosts }) {
     handleMenuClose();
   };
 
+  const renderMedia = () => {
+    if (!post.media) return null;
+
+    const mediaUrl = post.media.startsWith("http") 
+      ? post.media 
+      : `${process.env.REACT_APP_API_URL}/api/v1/posts/${post.media}`;
+
+    const fileExtension = mediaUrl.split('.').pop().toLowerCase();
+    const isImage = ['jpg', 'jpeg', 'png', 'gif'].includes(fileExtension);
+    const isVideo = ['mp4', 'webm', 'ogg'].includes(fileExtension);
+
+    return (
+      <div className="w-full aspect-square overflow-hidden rounded-lg mb-4">
+        {isImage ? (
+          <img
+            src={mediaUrl}
+            alt="Post media"
+            className="w-full h-full object-cover"
+          />
+        ) : isVideo ? (
+          <video controls className="w-full h-full">
+            <source src={mediaUrl} type={`video/${fileExtension}`} />
+            Your browser does not support the video tag.
+          </video>
+        ) : null}
+      </div>
+    );
+  };
+
   return (
-    <Card className="p-4">
+    <Card sx={{ p: 2, mb: 2, borderRadius: 2, boxShadow: 3 }}>
       <CardContent>
-        {error && <Typography color="error" className="mb-2">{error}</Typography>}
-        <div className="flex justify-between items-center">
+        {error && <Typography color="error" sx={{ mb: 2 }}>{error}</Typography>}
+        
+        {/* Post Header */}
+        <Box display="flex" justifyContent="space-between" alignItems="center">
           <UserInfo user={post.user} createdAt={post.createdAt} />
-          <Box display="flex" alignItems="center">
-            <IconButton onClick={handleMenuOpen}>
-              <MoreVert />
-            </IconButton>
-          </Box>
+          <IconButton onClick={handleMenuOpen}>
+            <MoreVert />
+          </IconButton>
           <Menu anchorEl={anchorEl} open={open} onClose={handleMenuClose}>
-            <MenuItem onClick={() => {
-              handleMenuClose();
-              onEdit(post);
-            }}>Edit</MenuItem>
+            <MenuItem onClick={() => { handleMenuClose(); onEdit(post); }}>Edit</MenuItem>
             <MenuItem onClick={handleDelete}>Delete</MenuItem>
           </Menu>
-        </div>
+        </Box>
 
-        <Typography variant="h6">{post.title}</Typography>
-        <Typography variant="body2">{post.description}</Typography>
-        <Typography variant="body2">{post.location}</Typography>
-        <Typography variant="body2">Rent: ₹ {post.rent}</Typography>
+        {/* Media Rendering */}
+        {renderMedia()}
+
+        {/* Post Details */}
+        <Typography variant="h6" sx={{ fontWeight: "bold", mb: 2 }}>{post.title}</Typography>
+        <Typography variant="body2" sx={{ mb: 2 }}>{post.description}</Typography>
+        <div className="flex justify-between items-center text-sm text-gray-600">
+          <span>📍 {post.location}</span>
+          <span>💰 ₹ {post.rent}/month</span>
+        </div>
       </CardContent>
     </Card>
   );

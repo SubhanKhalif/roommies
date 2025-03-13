@@ -13,6 +13,7 @@ import Root, { loader as loadingAction } from './pages/Root.js';
 import Search from './pages/Search.js';
 import CreatePost from './pages/CreatePost.js';
 import { UserProfile } from './pages/UserProfile.js';
+import { Details } from './pages/Details.js';
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
       {
         path: 'create-post',
         element: <CreatePost />,
+      },
+      {
+        path: 'post/:postId',
+        element: <Details />,
       },
       {
         path: ':userId',
